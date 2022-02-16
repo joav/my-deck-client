@@ -1,3 +1,4 @@
 export const environment = {
-  api: '/api/'
+  api: '/api/',
+  socket: '/',
 };
