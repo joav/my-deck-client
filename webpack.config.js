@@ -4,6 +4,8 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const WorkboxWebpackPlugin = require('workbox-webpack-plugin');
+const WebpackPwaManifest = require('webpack-pwa-manifest');
+const cleanPlugin = require('clean-webpack-plugin')
 
 const isProduction = process.env.NODE_ENV == 'production';
 
@@ -14,7 +16,7 @@ const stylesHandler = MiniCssExtractPlugin.loader;
 const config = {
   entry: './src/index.ts',
   output: {
-    path: path.resolve(__dirname, '../server/public/client'),
+    path: path.resolve(__dirname, 'dist'),
   },
   devServer: {
     open: true,
@@ -73,7 +75,34 @@ module.exports = (env) => {
   ));
 
   if (!env.WEBPACK_SERVE) {
-    config.plugins.push(new WorkboxWebpackPlugin.GenerateSW());
+    config.plugins.unshift(new cleanPlugin.CleanWebpackPlugin());
+    config.plugins.push(new WebpackPwaManifest({
+      name: 'My Progressive Web App',
+      short_name: 'MyPWA',
+      description: 'My awesome Progressive Web App!',
+      background_color: '#ffffff',
+      publicPath: "/client/",
+      // crossorigin: 'use-credentials', //can be null, use-credentials or anonymous
+      icons: [
+        {
+          src: path.resolve('src/assets/icons/icon.png'),
+          sizes: [96, 128, 192, 256, 384, 512] // multiple sizes
+        },
+        {
+          src: path.resolve('src/assets/icons/large-icon.png'),
+          size: '1024x1024' // you can also use the specifications pattern
+        },
+        {
+          src: path.resolve('src/assets/icons/maskable-icon.png'),
+          size: '1024x1024',
+          purpose: 'maskable'
+        }
+      ]
+    }));
+    config.plugins.push(new WorkboxWebpackPlugin.GenerateSW({
+      clientsClaim: true,
+      skipWaiting: true,
+    }));
   }
   return config;
 };

@@ -1,18 +1,32 @@
 import { io } from "socket.io-client";
 import { updateBoard } from "./board";
 import { environment } from "./environment/environment";
+import { Install } from "./install";
 import { ExecuteCommandParams } from "./models/execute-command-params";
 import "./scss/styles.scss";
 
-window.addEventListener('DOMContentLoaded', (event) => {
-  const socket = io(environment.socket);
+let server = localStorage.getItem('server');
 
-  socket.on('board', function(b) {
-    updateBoard(b);
-  });
+if (!server) {
+  server = prompt(JSON.parse(`"Cuál es la dirección del servidor"`));
+}
 
-  window.addEventListener("execute-command", (e: CustomEvent<ExecuteCommandParams>) => {
-    socket.emit("execute", e.detail);
+if (server) {
+  window.addEventListener('DOMContentLoaded', (event) => {
+    new Install(document.querySelector('#install'));
+  
+    const socket = io(server);
+  
+    socket.on('board', function(b) {
+      updateBoard(b);
+    });
+  
+    window.addEventListener("execute-command", (e: CustomEvent<ExecuteCommandParams>) => {
+      socket.emit("execute", e.detail);
+    });
   });
-});
+} else {
+  alert("Falta el servidor");
+}
+
 
