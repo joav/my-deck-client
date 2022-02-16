@@ -1,26 +1,84 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8" />
-        <title>Webpack App</title>
-    </head>
-    <body>
-        <h1>Hello world!</h1>
-        <h2>Tip: Check your console</h2>
-    </body>
-    
-    <script>
-        if ("serviceWorker" in navigator) {
-            window.addEventListener("load", () => {
-                navigator.serviceWorker
-                    .register("service-worker.js")
-                    .then((registration) => {
-                        console.log("Service Worker registered: ", registration);
-                    })
-                    .catch((registrationError) => {
-                        console.error("Service Worker registration failed: ", registrationError);
-                    });
-            });
-        }
-    </script>
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Deck - CLIENT</title>
+</head>
+
+<body>
+  <div class="client">
+    <div class="client__wrapper">
+      <div class="board">
+        <div class="board__item">
+          <div class="board__item-square">
+            <div class="board__item-content"
+              style="background-image: url('https://cdn-icons-png.flaticon.com/512/906/906324.png');"></div>
+          </div>
+        </div>
+        <div class="board__item">
+          <div class="board__item-square"></div>
+        </div>
+        <div class="board__item">
+          <div class="board__item-square"></div>
+        </div>
+        <div class="board__item">
+          <div class="board__item-square"></div>
+        </div>
+        <div class="board__item">
+          <div class="board__item-square"></div>
+        </div>
+        <div class="board__item">
+          <div class="board__item-square"></div>
+        </div>
+        <div class="board__item">
+          <div class="board__item-square"></div>
+        </div>
+        <div class="board__item">
+          <div class="board__item-square"></div>
+        </div>
+        <div class="board__item">
+          <div class="board__item-square"></div>
+        </div>
+        <div class="board__item">
+          <div class="board__item-square"></div>
+        </div>
+        <div class="board__item">
+          <div class="board__item-square"></div>
+        </div>
+        <div class="board__item">
+          <div class="board__item-square"></div>
+        </div>
+        <div class="board__item">
+          <div class="board__item-square"></div>
+        </div>
+        <div class="board__item">
+          <div class="board__item-square"></div>
+        </div>
+        <div class="board__item">
+          <div class="board__item-square"></div>
+        </div>
+      </div>
+    </div>
+    <h1 class="client__message">Usar de manera horizontal</h1>
+  </div>
+</body>
+
+<script>
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => {
+      navigator.serviceWorker
+        .register("service-worker.js")
+        .then((registration) => {
+          console.log("Service Worker registered: ", registration);
+        })
+        .catch((registrationError) => {
+          console.error("Service Worker registration failed: ", registrationError);
+        });
+    });
+  }
+</script>
+
 </html>
