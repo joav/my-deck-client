@@ -1,8 +1,12 @@
 import { Board, Slot } from "./models/board";
+import { ExecuteCommandParams } from "./models/execute-command-params";
 
 type SlotComplete = Slot & {slotId: string};
 
+let boardId = "";
+
 export function updateBoard(board: Board) {
+  boardId = board.id;
   const boardContainer = document.querySelector<HTMLElement>('.board');
   const slots = slotsToArray(board);
   boardContainer.innerHTML = printSlots(slots);
@@ -47,6 +51,12 @@ function slotContent(slot: Slot) {
 
 async function sendCommand(slot: SlotComplete) {
   if (slot.state === "FULL") {
-    console.log(`Executtind command: ${slot.button.name}`);
+    window.dispatchEvent(new CustomEvent<ExecuteCommandParams>("execute-command", {
+      detail: {
+        boardId,
+        slotId: slot.slotId,
+        slot: slot
+      }
+    }));
   }
 }
