@@ -82,6 +82,7 @@ module.exports = (env) => {
       description: 'My awesome Progressive Web App!',
       background_color: '#ffffff',
       publicPath: "/",
+      orientation: "landscape",
       // crossorigin: 'use-credentials', //can be null, use-credentials or anonymous
       icons: [
         {
