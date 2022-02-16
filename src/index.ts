@@ -9,6 +9,7 @@ let server = localStorage.getItem('server');
 
 if (!server) {
   server = prompt(JSON.parse(`"Cuál es la dirección del servidor"`));
+  localStorage.setItem("server", server);
 }
 
 if (server) {
@@ -16,6 +17,11 @@ if (server) {
     new Install(document.querySelector('#install'));
   
     const socket = io(server);
+
+    socket.on("connect_error", () => {
+      localStorage.removeItem('server');
+      location.reload();
+    });
   
     socket.on('board', function(b) {
       updateBoard(b);
