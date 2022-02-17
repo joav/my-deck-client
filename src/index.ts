@@ -5,7 +5,7 @@ import { Install } from "./install";
 import { ExecuteCommandParams } from "./models/execute-command-params";
 import "./scss/styles.scss";
 
-let server = localStorage.getItem('server');
+let server = environment.socket || localStorage.getItem('server');
 
 if (!server) {
   server = prompt(JSON.parse(`"Cuál es la dirección del servidor"`));
